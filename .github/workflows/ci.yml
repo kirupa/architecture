@@ -19,7 +19,8 @@ jobs:
           test -f website/index.html
           test -f website/styles.css
           test -f website/script.js
-          grep -q "Atelier Radius" website/index.html
+          grep -q "Contoso Architects" website/index.html
+          grep -q "experience === \"default\" || experience === \"vert\"" website/index.html
           grep -q "Workplaces" website/script.js
           grep -q "Residential" website/script.js
           grep -q "Public Spaces" website/script.js

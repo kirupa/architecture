@@ -8,11 +8,11 @@ web
 
 ## Users
 
-Visitors evaluating an architecture studio-style portfolio and browsing selected building projects by typology.
+Visitors evaluating the Contoso Architects portfolio demo and browsing selected building projects by typology.
 
 ## Product Purpose
 
-Provide a polished static demo that presents buildings and spaces with large photography and a hamburger category filter.
+Provide a polished static demo that presents Contoso Architects buildings and spaces with large photography and query-selected category navigation.
 
 ## Positioning
 
@@ -24,11 +24,11 @@ The site lives as static files in `C:\apps-architecture\website` and deploys thr
 
 ## Capabilities and Constraints
 
-The implementation is static HTML, CSS, and JavaScript. Category filtering runs in the browser. Demo photography is externally hosted placeholder imagery and must be replaced with owned project photography before a real studio launch.
+The implementation is static HTML, CSS, and JavaScript. Category filtering runs in the browser. The root URL intentionally redirects to GitHub Pages' default 404, `?e=default` shows horizontal tabs, and `?e=vert` shows the hamburger menu. Demo photography is externally hosted placeholder imagery and must be replaced with owned project photography before a real studio launch.
 
 ## Brand Commitments
 
-Architectural rather than emoji-themed: large imagery, restrained materials, typology filtering, and a hamburger menu replacing the previous horizontal category row.
+Architectural rather than emoji-themed: large imagery, restrained materials, typology filtering, the Contoso Architects name, horizontal-tab and hamburger demo variants, and a root URL that shows the host 404.
 
 ## Product Principles
 

@@ -93,6 +93,8 @@ const projects = [
 
 const categories = ["All projects", ...new Set(projects.map((project) => project.category))];
 const defaultCategory = "All projects";
+const routeParams = new URLSearchParams(window.location.search);
+const useVerticalNav = routeParams.get("e") === "vert";
 const menu = document.querySelector("#category-menu");
 const navToggle = document.querySelector("#nav-toggle");
 const selectionLabel = document.querySelector("#selection-label");
@@ -104,6 +106,11 @@ const leadTitle = document.querySelector("#lead-title");
 const leadCategory = document.querySelector("#lead-category");
 const leadLocation = document.querySelector("#lead-location");
 const leadYear = document.querySelector("#lead-year");
+
+if (useVerticalNav) {
+  document.documentElement.classList.add("variant-vert");
+  navToggle.hidden = false;
+}
 
 function createCategoryButton(category, isActive = false) {
   const button = document.createElement("button");
@@ -124,12 +131,14 @@ function setActiveButton(activeButton) {
 }
 
 function toggleMenu() {
+  if (!useVerticalNav) return;
   const isOpen = document.documentElement.classList.toggle("nav-open");
   navToggle.setAttribute("aria-expanded", String(isOpen));
   navToggle.setAttribute("aria-label", isOpen ? "Close project categories" : "Open project categories");
 }
 
 function closeMenu() {
+  if (!useVerticalNav) return;
   document.documentElement.classList.remove("nav-open");
   navToggle.setAttribute("aria-expanded", "false");
   navToggle.setAttribute("aria-label", "Open project categories");
@@ -197,20 +206,22 @@ function renderCategoryMenu() {
   });
 }
 
-navToggle.addEventListener("click", toggleMenu);
+if (useVerticalNav) {
+  navToggle.addEventListener("click", toggleMenu);
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+      navToggle.focus();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!document.documentElement.classList.contains("nav-open")) return;
+    if (event.target.closest(".site-header")) return;
     closeMenu();
-    navToggle.focus();
-  }
-});
-
-document.addEventListener("click", (event) => {
-  if (!document.documentElement.classList.contains("nav-open")) return;
-  if (event.target.closest(".site-header")) return;
-  closeMenu();
-});
+  });
+}
 
 renderCategoryMenu();
 renderProjects(defaultCategory);

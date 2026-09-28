@@ -5,29 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Architecture Portfolio</title>
   <meta name="description" content="A polished architecture portfolio with large photography and category filtering for workplaces, residential, and public spaces.">
-  <link rel="stylesheet" href="styles.css?v=20260928-architecture">
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const experience = params.get("e");
+      if (experience === "default" || experience === "vert") return;
+
+      const path = window.location.pathname;
+      const basePath = path.endsWith("/") ? path : path.replace(/\/[^/]*$/, "/");
+      window.location.replace(`${window.location.origin}${basePath}404`);
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260928-architecture-routes">
 </head>
 <body>
   <!--
     THESIS: Architecture browsing becomes a gallery wall of inhabitable spaces, refusing the real-estate listing grid.
     OWN-WORLD: graphite, limestone, brushed brass, compact plan-like controls, broad photographic plates, and quiet editorial typography.
-    STORY: visitors open the hamburger, choose a building typology, and scan a curated portfolio where each project reads like a case-study opening.
-    FIRST VIEWPORT: a slim top rail floats above one oversized lead photograph with project facts beside it; the category menu flies over the content from the left.
-    FORM: monograph portfolio with an overlaid typology drawer; the demo interaction from the emoji site becomes the primary category navigation.
+    STORY: visitors choose a route-specific navigation treatment, select a building typology, and scan a curated portfolio where each project reads like a case-study opening.
+    FIRST VIEWPORT: a slim top rail floats above one oversized lead photograph with project facts beside it; ?e=default shows horizontal typology tabs, while ?e=vert swaps them for a left flyout drawer.
+    FORM: monograph portfolio with query-selected category navigation; the root URL intentionally hands unknown/default traffic to the host 404.
   -->
   <main class="site-shell">
     <header class="site-header" aria-label="Portfolio controls">
       <div class="top-rail">
         <div class="brand-cluster">
-          <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open project categories">
+          <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open project categories" hidden>
             <span></span>
             <span></span>
             <span></span>
           </button>
-          <a class="brand" href="#" aria-label="Architecture Portfolio home">
+          <a class="brand" href="#" aria-label="Contoso Architects home">
             <span class="brand-mark" aria-hidden="true"></span>
             <span>
-              <strong>Atelier Radius</strong>
+              <strong>Contoso Architects</strong>
               <small>Buildings &amp; spaces</small>
             </span>
           </a>
