@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture Portfolio</title>
+  <meta name="description" content="A polished architecture portfolio with large photography and category filtering for workplaces, residential, and public spaces.">
+  <link rel="stylesheet" href="styles.css?v=20260928-architecture">
+</head>
+<body>
+  <!--
+    THESIS: Architecture browsing becomes a gallery wall of inhabitable spaces, refusing the real-estate listing grid.
+    OWN-WORLD: graphite, limestone, brushed brass, compact plan-like controls, broad photographic plates, and quiet editorial typography.
+    STORY: visitors open the hamburger, choose a building typology, and scan a curated portfolio where each project reads like a case-study opening.
+    FIRST VIEWPORT: a slim top rail floats above one oversized lead photograph with project facts beside it; the category menu flies over the content from the left.
+    FORM: monograph portfolio with an overlaid typology drawer; the demo interaction from the emoji site becomes the primary category navigation.
+  -->
+  <main class="site-shell">
+    <header class="site-header" aria-label="Portfolio controls">
+      <div class="top-rail">
+        <div class="brand-cluster">
+          <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open project categories">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <a class="brand" href="#" aria-label="Architecture Portfolio home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>
+              <strong>Atelier Radius</strong>
+              <small>Buildings &amp; spaces</small>
+            </span>
+          </a>
+        </div>
+        <p id="selection-label" class="selection-label" aria-live="polite">All projects</p>
+      </div>
+
+      <nav id="category-menu" class="category-menu" aria-label="Project categories"></nav>
+    </header>
+
+    <section class="hero" aria-labelledby="portfolio-heading">
+      <figure class="lead-plate">
+        <img id="lead-image" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=82" alt="Bright modern workplace with long tables and exposed ceiling structure.">
+      </figure>
+
+      <div class="hero-copy">
+        <h1 id="portfolio-heading">Places shaped for work, retreat, and civic life.</h1>
+        <p>
+          A demonstration portfolio for architectural studies, interiors, and public environments.
+          Filter by typology to move through the collection like a compact studio monograph.
+        </p>
+        <div class="feature-panel" aria-label="Featured project">
+          <p class="panel-label">Featured study</p>
+          <h2 id="lead-title"></h2>
+          <dl>
+            <div>
+              <dt>Typology</dt>
+              <dd id="lead-category"></dd>
+            </div>
+            <div>
+              <dt>Setting</dt>
+              <dd id="lead-location"></dd>
+            </div>
+            <div>
+              <dt>Year</dt>
+              <dd id="lead-year"></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-section" aria-labelledby="work-heading">
+      <div class="section-heading">
+        <h2 id="work-heading">Selected buildings and spaces</h2>
+        <p id="result-count" class="result-count" aria-live="polite"></p>
+      </div>
+
+      <div id="project-grid" class="project-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <template id="project-card-template">
+    <article class="project-card">
+      <button class="project-button" type="button">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=82" alt="Bright modern workplace with long tables and exposed ceiling structure." loading="lazy">
+        <span class="project-overlay">
+          <span class="project-category"></span>
+          <strong></strong>
+          <span class="project-location"></span>
+        </span>
+      </button>
+      <p class="project-summary"></p>
+    </article>
+  </template>
+
+  <footer class="site-footer">
+    <p>Demo portfolio with placeholder architecture photography. Replace image references and project details with owned studio work before production use.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

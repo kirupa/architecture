@@ -1,0 +1,32 @@
+name: Website CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    name: Verify static website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify required assets
+        run: |
+          test -f website/index.html
+          test -f website/styles.css
+          test -f website/script.js
+          grep -q "Atelier Radius" website/index.html
+          grep -q "Workplaces" website/script.js
+          grep -q "Residential" website/script.js
+          grep -q "Public Spaces" website/script.js
+
+      - name: Scan website for placeholder secrets
+        run: |
+          if grep -RniE "AWS_SECRET|PRIVATE_KEY|BEGIN RSA|ghp_[A-Za-z0-9_]{36}" website; then
+            echo "Potential secret-like value found in website assets."
+            exit 1
+          fi

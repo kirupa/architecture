@@ -1,0 +1,28 @@
+name: Scheduled site audit
+
+on:
+  schedule:
+    - cron: "18 12 * * 1"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit demo configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Confirm production URL
+        run: |
+          grep -R "https://kirupa.github.io/architecture/" README.md .github/workflows/deploy-prod.yml
+
+      - name: Confirm portfolio categories
+        run: |
+          grep -q "Workplaces" website/script.js
+          grep -q "Residential" website/script.js
+          grep -q "Public Spaces" website/script.js
+
+      - name: Record audit note
+        run: |
+          echo "Architecture demo audit completed for $GITHUB_SHA"

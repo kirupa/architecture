@@ -1,0 +1,47 @@
+name: Deploy preview website
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SITE_DIR: website
+  PREVIEW_BUCKET: sample-architecture-preview-bucket
+
+jobs:
+  preview:
+    name: Package preview artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate preview files
+        run: |
+          test -f "$SITE_DIR/index.html"
+          test -f "$SITE_DIR/styles.css"
+          test -f "$SITE_DIR/script.js"
+
+      - name: Build preview manifest
+        run: |
+          mkdir -p preview
+          cat > preview/manifest.json <<JSON
+          {
+            "bucket": "$PREVIEW_BUCKET",
+            "pullRequest": "${{ github.event.pull_request.number }}",
+            "siteDirectory": "$SITE_DIR",
+            "status": "ready-for-upload"
+          }
+          JSON
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: architecture-preview-${{ github.event.pull_request.number }}
+          path: |
+            ${{ env.SITE_DIR }}
+            preview/manifest.json
